@@ -1,16 +1,51 @@
-# React + Vite
+# Salary Management Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend application for the Salary Management System built with React and Vite.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This app connects to the backend server at `http://localhost:5000` to manage employee records and display salary statistics.
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- View employee list
+- Add a new employee
+- Delete employees
+- Display summary cards for:
+  - total employees
+  - total salary
+  - average salary
 
-## Expanding the ESLint configuration
+## Requirements
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Node.js 18+ or compatible
+- npm
+- Backend running at `http://localhost:5000`
+
+## Install
+
+```bash
+cd frontend
+npm install
+```
+
+## Run
+
+```bash
+npm run dev
+```
+
+Open the application at the URL shown in the terminal (usually `http://localhost:5173`).
+
+## Available Scripts
+
+- `npm run dev` - start the development server
+- `npm run build` - build the production bundle
+- `npm run preview` - preview the production build locally
+- `npm run lint` - run ESLint on the project
+
+## Notes
+
+- Ensure the backend is running before using the app to avoid network errors.
+- The frontend uses Axios to call the backend APIs.
+- Employee data is loaded from the backend.
