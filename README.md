@@ -1,26 +1,27 @@
 # Salary Management Frontend
 
-Frontend application for the Salary Management System built with React and Vite.
+A React + Vite frontend for the Salary Management application.
 
 ## Overview
 
-This app connects to the backend server at `http://localhost:5000` to manage employee records and display salary statistics.
+This frontend app displays employee payroll data and salary metrics, and allows users to add or delete employees. It communicates with the backend API to load employee data and perform updates.
 
 ## Features
 
-- View employee list
+- Display employee list
 - Add a new employee
-- Delete employees
-- Display summary cards for:
+- Delete existing employees
+- Show salary summary cards for:
   - total employees
   - total salary
   - average salary
+- Search employees by name, country, or job title
 
 ## Requirements
 
 - Node.js 18+ or compatible
 - npm
-- Backend running at `http://localhost:5000`
+- Backend API running locally
 
 ## Install
 
@@ -35,17 +36,42 @@ npm install
 npm run dev
 ```
 
-Open the application at the URL shown in the terminal (usually `http://localhost:5173`).
+Open the application in your browser at the URL shown in the terminal (usually `http://localhost:5173`).
+
+## Environment
+
+The frontend uses the backend API base URL from the environment variable `VITE_API_URL`.
+
+By default, it connects to:
+
+```text
+http://localhost:5000
+```
+
+To override the backend URL, create a `.env` file in `frontend` with:
+
+```text
+VITE_API_URL=http://localhost:5000
+```
 
 ## Available Scripts
 
 - `npm run dev` - start the development server
 - `npm run build` - build the production bundle
 - `npm run preview` - preview the production build locally
-- `npm run lint` - run ESLint on the project
+- `npm run lint` - run ESLint across the project
+
+## API Requirements
+
+The frontend expects the backend to expose these endpoints:
+
+- `GET /employees` — returns an array of employees
+- `GET /summary` — returns summary statistics
+- `POST /employees` — add a new employee
+- `DELETE /employees/:id` — delete an employee by ID
 
 ## Notes
 
-- Ensure the backend is running before using the app to avoid network errors.
-- The frontend uses Axios to call the backend APIs.
-- Employee data is loaded from the backend.
+- Make sure the backend server is running before opening the frontend.
+- The app uses Axios for HTTP requests.
+- The frontend source is under `frontend/src`, with the main app in `frontend/src/App.jsx`.
