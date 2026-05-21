@@ -19,19 +19,29 @@ function App() {
   });
 
   const fetchEmployees = async () => {
-    const response = await axios.get(
-      "http://localhost:5000/employees"
-    );
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/employees"
+      );
 
-    setEmployees(response.data);
+      setEmployees(response.data);
+    } catch (error) {
+      console.error("Failed to fetch employees:", error);
+      setEmployees([]);
+    }
   };
 
   const fetchSummary = async () => {
-    const response = await axios.get(
-      "http://localhost:5000/summary"
-    );
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/summary"
+      );
 
-    setSummary(response.data);
+      setSummary(response.data);
+    } catch (error) {
+      console.error("Failed to fetch summary:", error);
+      setSummary({ totalEmployees: 0, totalSalary: 0, averageSalary: 0 });
+    }
   };
 
   useEffect(() => {
@@ -49,28 +59,38 @@ function App() {
   const addEmployee = async event => {
     event.preventDefault();
 
-    await axios.post(
-      "http://localhost:5000/employees",
-      formData
-    );
+    try {
+      await axios.post(
+        "http://localhost:5000/employees",
+        formData
+      );
 
-    setFormData({
-      fullName: "",
-      country: "",
-      jobTitle: "",
-      salary: "",
-    });
+      setFormData({
+        fullName: "",
+        country: "",
+        jobTitle: "",
+        salary: "",
+      });
 
-    fetchEmployees();
-    fetchSummary();
+      fetchEmployees();
+      fetchSummary();
+    } catch (error) {
+      console.error("Failed to add employee:", error);
+      alert("Unable to add employee. Is the backend server running?");
+    }
   };
 
   const deleteEmployee = async id => {
-    await axios.delete(
-      `http://localhost:5000/employees/${id}`
-    );
-    fetchEmployees();
-    fetchSummary();
+    try {
+      await axios.delete(
+        `http://localhost:5000/employees/${id}`
+      );
+      fetchEmployees();
+      fetchSummary();
+    } catch (error) {
+      console.error("Failed to delete employee:", error);
+      alert("Unable to delete employee. Check backend connectivity.");
+    }
   };
 
   return (
