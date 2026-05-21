@@ -1,77 +1,100 @@
-# Salary Management Frontend
+# Salary Management — Frontend
 
-A React + Vite frontend for the Salary Management application.
+A React + Vite frontend for the Salary Management application. This app displays the employee list, allows adding and deleting employees, and shows summary metrics (total employees, total salary, average salary).
 
-## Overview
+## Quick start
 
-This frontend app displays employee payroll data and salary metrics, and allows users to add or delete employees. It communicates with the backend API to load employee data and perform updates.
+Prerequisites:
+- Node.js 18+ (or compatible) and `npm`
+- The backend API (see `../backend`) running locally or reachable from this machine
 
-## Features
-
-- Display employee list
-- Add a new employee
-- Delete existing employees
-- Show salary summary cards for:
-  - total employees
-  - total salary
-  - average salary
-- Search employees by name, country, or job title
-
-## Requirements
-
-- Node.js 18+ or compatible
-- npm
-- Backend API running locally
-
-## Install
+Install dependencies:
 
 ```bash
 cd frontend
 npm install
 ```
 
-## Run
+Run the development server:
 
 ```bash
 npm run dev
 ```
 
-Open the application in your browser at the URL shown in the terminal (usually `http://localhost:5173`).
+Open the URL displayed by Vite (typically `http://localhost:5173`).
 
-## Environment
+## Environment configuration
 
-The frontend uses the backend API base URL from the environment variable `VITE_API_URL`.
-
-By default, it connects to:
+The frontend reads the backend base URL from the `VITE_API_URL` environment variable. By default the app expects the backend on port `5000`:
 
 ```text
 http://localhost:5000
 ```
 
-To override the backend URL, create a `.env` file in `frontend` with:
+To override, create a `.env` file in the `frontend` folder:
 
 ```text
 VITE_API_URL=http://localhost:5000
 ```
 
-## Available Scripts
+After changing `.env`, restart the dev server to pick up new variables.
 
-- `npm run dev` - start the development server
-- `npm run build` - build the production bundle
-- `npm run preview` - preview the production build locally
-- `npm run lint` - run ESLint across the project
+## Scripts
 
-## API Requirements
+- `npm run dev` — start dev server with hot reload
+- `npm run build` — produce a production build in `dist`
+- `npm run preview` — locally preview the production build
+- `npm run lint` — run ESLint (if configured)
 
-The frontend expects the backend to expose these endpoints:
+## API endpoints used by the frontend
 
-- `GET /employees` — returns an array of employees
-- `GET /summary` — returns summary statistics
-- `POST /employees` — add a new employee
-- `DELETE /employees/:id` — delete an employee by ID
+The frontend expects the backend to provide these endpoints:
 
-## Notes
+- `GET /employees` — return an array of employee objects
+- `GET /summary` — return `{ totalEmployees, totalSalary, averageSalary }`
+- `POST /employees` — add a new employee (JSON body)
+- `DELETE /employees/:id` — delete an employee by id
 
-- Make sure the backend server is running before opening the frontend.
-- The app uses Axios for HTTP requests.
-- The frontend source is under `frontend/src`, with the main app in `frontend/src/App.jsx`.
+Example of the summary response:
+
+```json
+{
+  "totalEmployees": 123,
+  "totalSalary": 9876543,
+  "averageSalary": 80324.22
+}
+```
+
+## Development notes
+
+- Main source: `frontend/src/App.jsx`.
+- The UI uses Axios to call the backend and automatically refreshes the summary after add/delete operations.
+- If the summary cards do not update after a change, confirm the backend is running and that `VITE_API_URL` points at the correct server.
+
+## Troubleshooting
+
+- Backend unreachable: verify the backend server is running (`backend/server.js`) and CORS is enabled. Default backend port: `5000`.
+- Port conflicts: change Vite port by setting `PORT` when starting Vite or configure Vite settings in `vite.config.js`.
+- Environment variables not picked up: stop and restart the dev server after editing `.env`.
+
+## Build & Deploy
+
+When building for production, run:
+
+```bash
+npm run build
+```
+
+Serve the `dist` folder with a static server or integrate into your preferred hosting pipeline. Make sure the deployed frontend is configured to call the correct backend URL.
+
+## Contributing
+
+Report issues or open a PR with improvements. For local development, run the backend and frontend concurrently in separate terminals.
+
+## Where to look next
+
+- Frontend app: `frontend/src`
+- Backend app: `backend` (API, data, and seed scripts)
+
+---
+If you'd like, I can also commit this README update and push it to the repository; tell me when to proceed.
